@@ -71,6 +71,9 @@ go to terminal and type the below command:
 
 cat /var/lib/jenkins/secrets/initialAdminPassword
 
+5fafe94fc20c41adad1b36a8e63f3f3a
+
+
 copy the passowrd displayed ont he termianl.
 
 Copy the password and paste in the browser (jenkins)
@@ -148,6 +151,47 @@ Go to cmd prompt
 change to cd c:\jenkinsdir
 copy the above jenkins agent path
 System will get connected.
+
+============================
+
+pipeline{
+    
+    tools{
+        maven 'mymaven'
+    }
+    
+    agent any // node where we have to run pipeline
+    
+    stages{
+        stage('Clone the repo')
+        {
+            steps{
+                git "https://github.com/Sonal0409/DevOpsCodeDemo.git"
+            }
+        }
+        stage('CompileCode')
+        {
+            steps{
+                
+                sh 'mvn compile'
+            }
+        }    
+        stage('TestCode')
+        {
+            steps{
+                
+                sh 'mvn test'
+            }
+        }
+        stage('Packagecode')
+        {
+            steps{
+                
+                sh 'mvn package'
+            }
+        }    
+    }
+}
 
 
 
